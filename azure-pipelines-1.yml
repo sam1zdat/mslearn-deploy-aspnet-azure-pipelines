@@ -42,6 +42,8 @@ stages:
 - stage: IaC
   jobs:
     - job: Iac
+      pool:
+        vmImage: 'windows-latest'
       steps: 
         - task: AzureCLI@2
           inputs:

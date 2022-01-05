@@ -43,6 +43,7 @@ stages:
           ArtifactName: drop
           publishLocation: Container
           PathtoPublish: $(build.artifactStagingDirectory)
+
 - stage: IaC
   jobs:
     - job: Iac
@@ -60,13 +61,13 @@ stages:
             scriptLocation: 'inlineScript'
             inlineScript: |
               # create a resource group
-              az group create -l $location -n $resourcegroupename
+              az group create -l $location -n $resourcegroupname
               
               # create and configure Azure SQL logical server and Azure SQL database
-              az sql server create -l $location -g $resourcegroupename -n $sqlservername -u $(username) -p $(password)
-              az sql db create -g $resourcegroupename -s $sqlservername -n $dbname --service-objective Basic
-              az sql server firewall-rule create -g $resourcegroupename-s $sqlservername -n allowazure --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+              az sql server create -l $location -g $resourcegroupname -n $sqlservername -u $(username) -p $(password)
+              az sql db create -g $resourcegroupname -s $sqlservername -n $dbname --service-objective Basic
+              az sql server firewall-rule create -g $resourcegroupname-s $sqlservername -n allowazure --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
               
               # create and configure an Azure App Service plan and an Azure web app
-              az appservice plan create -g $resourcegroupename -n $serviceplanname --sku FREE
-              az webapp create -g $resourcegroupename -p $serviceplanname -n $WEBAPPNAME
+              az appservice plan create -g $resourcegroupname -n $serviceplanname --sku FREE
+              az webapp create -g $resourcegroupname -p $serviceplanname -n $WEBAPPNAME

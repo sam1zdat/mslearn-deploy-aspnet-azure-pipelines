@@ -41,6 +41,34 @@ stages:
           inputs:
             ArtifactName: drop
             PathtoPublish: $(build.artifactStagingDirectory)
+        - task: VSTest@2
+          displayName: testing
+          inputs:
+            platform: $(buildPlatform)
+            configuration: $(buildConfiguration)
+
+- stage: deploy
+  dependsOn: build
+  displayName: azure app service deploy 
+  jobs:
+    - job: deploy
+      displayName: deploy job
+      steps:
+        - task: DownloadBuildArtifacts@1
+          displayName: Get package from the artifact
+          inputs:
+            artifactName: drop
+            downloadPath: '$(System.ArtifactsDirectory)'
+            buildType: current
+            downloadType: single
+        - task: AzureWebApp@1
+          displayName: deploy to azure app service
+          inputs:
+            azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'
+            appType: webApp
+            appName: mywebappssh001
+            package: $(Pipline.Workspace)/**/drop/*.zip
+            
 
 
 

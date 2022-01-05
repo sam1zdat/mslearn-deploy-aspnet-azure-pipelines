@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- none
+variables:
+  vmImage : 'windows-2019'
+  solution: '*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+pool:
+  vmImage: $(vmImage)
+
+stages:
+- stage: build
+  displayName: build and package asp.net solution
+  jobs:
+    - job: build
+      displayName: build
+      pool:
+        vmImage: $(vmImage)
+      steps:
+        - task: NuGetToolInstaller@1
+        - task: NuGetRestore@1
+          inputs:
+            solution: '**/*.sln'
+            selectOrConfig: 'select'

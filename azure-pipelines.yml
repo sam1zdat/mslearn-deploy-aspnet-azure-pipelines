@@ -68,7 +68,7 @@ stages:
             azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'
             appType: 'webApp'
             WebAppName: mywebappssh001
-            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
             
 
 

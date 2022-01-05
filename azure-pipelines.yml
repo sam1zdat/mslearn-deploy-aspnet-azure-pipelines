@@ -61,13 +61,14 @@ stages:
             downloadPath: '$(System.ArtifactsDirectory)'
             buildType: current
             downloadType: single
-        - task: AzureWebApp@1
+        - task: AzureRmWebAppDeployment@4
           displayName: deploy to azure app service
           inputs:
+            ConnectionType: 'AzureRM'
             azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'
-            appType: webApp
-            appName: mywebappssh001
-            package: $(Pipeline.Workspace)/**/drop/*.zip
+            appType: 'webApp'
+            WebAppName: mywebappssh001
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
             
 
 

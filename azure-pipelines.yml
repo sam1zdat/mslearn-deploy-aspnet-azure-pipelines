@@ -26,5 +26,13 @@ stages:
         - task: NuGetToolInstaller@1
         - task: NuGetRestore@1
           inputs:
-            solution: '**/*.sln'
+            solution: $(solution)
             selectOrConfig: 'select'
+        - task: VSBuild@1
+          displayName: build the solution with vs
+          inputs:
+            solution: $(solution)
+            vsVersion: 16.0
+            configuration: $(buildConfiguration)
+            platform: $(buildPlatform)
+        

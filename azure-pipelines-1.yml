@@ -10,17 +10,20 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-  group: AzureResourcesVariableGroup
-  azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'
+- group: AzureResourcesVariableGroup
+
 stages:
 - stage: build
   jobs:
     - job: build
       pool:
-        vmImage: 'windows-2019'
+        vmImage: 'windows-2019'     
+
+      variables:
+        solution: '**/*.sln'
+        buildPlatform: 'Any CPU'
+        buildConfiguration: 'Release'
+
       steps:
       - task: NuGetToolInstaller@1
 
@@ -45,10 +48,14 @@ stages:
     - job: Iac
       pool:
         vmImage: 'windows-latest'
+
+      variables: 
+      - group: AzureResourcesVariableGroup
+      
       steps: 
         - task: AzureCLI@2
           inputs:
-            azureSubscription: $(azureSubscription)
+            azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |

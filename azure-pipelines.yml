@@ -40,7 +40,7 @@ stages:
           displayName: publish the artifact   
           inputs:
             ArtifactName: drop
-            PathtoPublish: $(build.artifactStagingDirectory)/drop/*.zip
+            PathtoPublish: $(build.artifactStagingDirectory)
 
 
 

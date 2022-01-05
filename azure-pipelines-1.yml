@@ -38,4 +38,9 @@ stages:
           ArtifactName: drop
           publishLocation: Container
           PathtoPublish: $(build.artifactStagingDirectory)
+- stage: IaC
+  jobs:
+    - job: Iac
+      steps:
+        - 
       - task: AzureCLI@2

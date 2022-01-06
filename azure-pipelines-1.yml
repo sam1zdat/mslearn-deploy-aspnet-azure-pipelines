@@ -56,8 +56,6 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              #echo 'location =' $(location)
-              az upgrade -y
               # create a resource group
               az group create -l $(location) -n $(resourcegroupname)
               

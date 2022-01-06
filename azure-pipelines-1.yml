@@ -6,9 +6,6 @@
 trigger:
 - none
 
-pool:
-  vmImage: 'windows-latest'
-
 variables:
 - group: AzureResourcesVariableGroup
 
@@ -59,7 +56,7 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              echo 'location =' $location
+              echo 'location =' $(location)
               az upgrade
               # # create a resource group
               # az group create -l $location -n $resourcegroupname

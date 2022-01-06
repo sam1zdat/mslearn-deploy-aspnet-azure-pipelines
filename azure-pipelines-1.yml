@@ -50,9 +50,6 @@ stages:
       pool:
         vmImage: 'windows-latest'
 
-      variables: 
-      - group: AzureResourcesVariableGroup
-      
       steps: 
         - task: AzureCLI@2
           
@@ -71,4 +68,4 @@ stages:
               
               # create and configure an Azure App Service plan and an Azure web app
               az appservice plan create -g $resourcegroupname -n $serviceplanname --sku FREE
-              az webapp create -g $resourcegroupname -p $serviceplanname -n $WEBAPPNAME
+              az webapp create -g $resourcegroupname -p $serviceplanname -n $webappname

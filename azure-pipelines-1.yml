@@ -67,3 +67,22 @@ stages:
               # create and configure an Azure App Service plan and an Azure web app
               az appservice plan create -g $(resourcegroupname) -n $(serviceplanname) --sku FREE
               az webapp create -g $(resourcegroupname) -p $(serviceplanname) -n $(webappname)
+
+- stage: deploy
+  jobs:
+  - job: deploy
+    pool: 
+      vmImage: 'windows-latest'
+    
+    steps:
+      - task: DownloadBuildArtifacts@1
+        inputs:
+          artifactName: drop
+          downloadPath: $(System.ArtifactsDirectory)
+          buildType: current
+          downloadType: single
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          appType: webApp
+          azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'
+            

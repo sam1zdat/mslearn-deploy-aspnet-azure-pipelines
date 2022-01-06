@@ -51,6 +51,7 @@ stages:
         vmImage: 'windows-latest'
 
       steps: 
+        - checkout: none
         - task: AzureCLI@2
           
           inputs:
@@ -58,7 +59,8 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              echo $location
+              echo 'location =' $location
+              az upgrade
               # # create a resource group
               # az group create -l $location -n $resourcegroupname
               

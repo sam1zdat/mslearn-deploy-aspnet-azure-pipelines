@@ -88,7 +88,7 @@ stages:
           DeploymentType: webDeploy
           WebAppName: $(webappname)
           ResourceGroupName: $(resourcegroupname)
-          packageForLinux: $(Pipeline.Workspace)/**/drop/*.zip
+          packageForLinux: $(Pipeline.Workspace)/**/drop/*.zip # $(System.DefaultWorkingDirectory)/**/*.zip
       - task: AzureAppServiceSettings@1
         inputs:
           azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'

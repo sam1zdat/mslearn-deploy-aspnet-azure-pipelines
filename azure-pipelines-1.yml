@@ -56,16 +56,16 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              echo 'location =' $(location)
-              az upgrade
-              # # create a resource group
-              # az group create -l $location -n $resourcegroupname
+              #echo 'location =' $(location)
+              az upgrade -y
+              # create a resource group
+              az group create -l $(location) -n $(resourcegroupname)
               
-              # # create and configure Azure SQL logical server and Azure SQL database
-              # az sql server create -l $location -g $resourcegroupname -n $sqlservername -u $(username) -p $(password)
-              # az sql db create -g $resourcegroupname -s $sqlservername -n $dbname --service-objective Basic
-              # az sql server firewall-rule create -g $resourcegroupname -s $sqlservername -n allowazure --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+              # create and configure Azure SQL logical server and Azure SQL database
+              az sql server create -l $(location) -g $(resourcegroupname) -n $(sqlservername) -u $(username) -p $(password)
+              az sql db create -g $(resourcegroupname) -s $(sqlservername) -n $(dbname) --service-objective Basic
+              az sql server firewall-rule create -g $(resourcegroupname) -s $(sqlservername) -n allowazure --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
               
-              # # create and configure an Azure App Service plan and an Azure web app
-              # az appservice plan create -g $resourcegroupname -n $serviceplanname --sku FREE
-              # az webapp create -g $resourcegroupname -p $serviceplanname -n $webappname
+              # create and configure an Azure App Service plan and an Azure web app
+              az appservice plan create -g $(resourcegroupname) -n $(serviceplanname) --sku FREE
+              az webapp create -g $(resourcegroupname) -p $(serviceplanname) -n $(webappname)
